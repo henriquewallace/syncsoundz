@@ -4,20 +4,16 @@ import com.syncsoundz.server.domain.AuthRequest;
 import com.syncsoundz.server.domain.AuthRequestToken;
 import com.syncsoundz.server.domain.AuthResponseToken;
 import com.syncsoundz.server.util.SpotifyApiPath;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
-import reactor.core.publisher.Mono;
-
-import java.net.URI;
 
 @Service
-public class AuthService {
+public class SpotifyAuthService {
 
     private final WebClient webClient;
 
-    public AuthService(WebClient.Builder webClientBuilder) {
+    public SpotifyAuthService(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder
                 .baseUrl(SpotifyApiPath.AUTH_BASE_URL).build();
     }

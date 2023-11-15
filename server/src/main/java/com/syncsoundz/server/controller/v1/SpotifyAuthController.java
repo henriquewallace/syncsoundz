@@ -4,7 +4,7 @@ import com.syncsoundz.server.domain.AuthRedirectUrl;
 import com.syncsoundz.server.domain.AuthRequest;
 import com.syncsoundz.server.domain.AuthRequestToken;
 import com.syncsoundz.server.domain.AuthResponseToken;
-import com.syncsoundz.server.service.AuthService;
+import com.syncsoundz.server.service.SpotifyAuthService;
 import com.syncsoundz.server.util.CodeChallengeUtil;
 import com.syncsoundz.server.util.CodeVerifierUtil;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,13 +12,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClientException;
-import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1")
-public class AuthController {
+public class SpotifyAuthController {
 
     @Value("${SPOTIFY_CLIENT_ID}")
     private String clientId;
@@ -28,11 +27,11 @@ public class AuthController {
 
     private String codeVerifier;
 
-    private final AuthService authService;
+    private final SpotifyAuthService spotifyAuthService;
     private final AuthRequest authRequest;
 
-    public AuthController(AuthService authService) {
-        this.authService = authService;
+    public SpotifyAuthController(SpotifyAuthService spotifyAuthService) {
+        this.spotifyAuthService = spotifyAuthService;
         this.authRequest = new AuthRequest();
         authRequest.setCode_challenge_method("S256");
         authRequest.setResponse_type("code");
@@ -49,7 +48,7 @@ public class AuthController {
         authRequest.setRedirect_uri(redirectUrlGetToken);
 
         AuthRedirectUrl authRedirectUrl = new AuthRedirectUrl();
-        authRedirectUrl.setAuthRedirectUrl(authService.requestUserAuthorization(authRequest));
+        authRedirectUrl.setAuthRedirectUrl(spotifyAuthService.requestUserAuthorization(authRequest));
 
         return authRedirectUrl;
     }
@@ -65,7 +64,7 @@ public class AuthController {
 
         AuthResponseToken authResponseToken = new AuthResponseToken();
         try {
-            authResponseToken.setAccess_token(authService.getAccessToken(authRequestToken).getAccess_token());
+            authResponseToken.setAccess_token(spotifyAuthService.getAccessToken(authRequestToken).getAccess_token());
 
         } catch (WebClientException error) {
             System.out.println("Error: " + error.getMessage());
