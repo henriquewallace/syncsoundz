@@ -1,6 +1,8 @@
 package com.syncsoundz.server.service;
 
 import com.syncsoundz.server.domain.DeezerAuthRequest;
+import com.syncsoundz.server.domain.DeezerAuthRequestToken;
+import com.syncsoundz.server.domain.DeezerAuthResponseToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -22,5 +24,15 @@ public class DeezerAuthService {
                 .queryParam("redirect_uri", deezerAuthRequest.getRedirect_uri())
                 .queryParam("perms", deezerAuthRequest.getPerms())
                 .build().toUriString();
+    }
+
+    public DeezerAuthResponseToken getAccessToken(DeezerAuthRequestToken deezerAuthRequestToken) {
+        return this.webClient.get().uri(uriBuilder -> uriBuilder
+                .path("/oauth/access_token.php")
+                .queryParam("app_id", deezerAuthRequestToken.getApp_id())
+                .queryParam("secret", deezerAuthRequestToken.getSecret())
+                .queryParam("code", deezerAuthRequestToken.getCode())
+                .queryParam("output", deezerAuthRequestToken.getOutput())
+                .build()).retrieve().bodyToMono(DeezerAuthResponseToken.class).block();
     }
 }
