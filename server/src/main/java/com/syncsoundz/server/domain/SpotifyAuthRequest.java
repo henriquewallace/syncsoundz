@@ -4,7 +4,7 @@ package com.syncsoundz.server.domain;
 import lombok.Data;
 
 @Data
-public class AuthRequest {
+public class SpotifyAuthRequest {
 
     private String client_id;
     private String response_type;

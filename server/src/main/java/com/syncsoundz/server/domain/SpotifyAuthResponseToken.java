@@ -3,7 +3,7 @@ package com.syncsoundz.server.domain;
 import lombok.Data;
 
 @Data
-public class AuthResponseToken {
+public class SpotifyAuthResponseToken {
 
     private String access_token;
     private String token_type;
