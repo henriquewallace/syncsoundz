@@ -9,7 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
-public class SpotifyAuthService {
+public class SpotifyAuthService implements AuthService<SpotifyAuthRequest, SpotifyAuthRequestToken, SpotifyAuthResponseToken> {
 
     private final WebClient webClient;
 
@@ -18,6 +18,7 @@ public class SpotifyAuthService {
                 .baseUrl(SpotifyApiPath.AUTH_BASE_URL).build();
     }
 
+    @Override
     public String requestUserAuthorization(SpotifyAuthRequest spotifyAuthRequest) {
 
         return SpotifyApiPath.AUTH_BASE_URL + UriComponentsBuilder
@@ -31,6 +32,7 @@ public class SpotifyAuthService {
                 .build().toUriString();
     }
 
+    @Override
     public SpotifyAuthResponseToken getAccessToken(SpotifyAuthRequestToken spotifyAuthRequestToken) {
         WebClient.RequestBodySpec bodySpec = this.webClient.post().uri(uriBuilder -> uriBuilder
                 .path("/api/token")

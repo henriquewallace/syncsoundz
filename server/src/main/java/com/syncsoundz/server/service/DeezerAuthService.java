@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
-public class DeezerAuthService {
+public class DeezerAuthService implements AuthService<DeezerAuthRequest, DeezerAuthRequestToken, DeezerAuthResponseToken> {
 
     private final WebClient webClient;
     private final String DEEZER_BASE_URL = "https://connect.deezer.com";
@@ -17,6 +17,7 @@ public class DeezerAuthService {
         this.webClient = webClientBuilder.baseUrl(DEEZER_BASE_URL).build();
     }
 
+    @Override
     public String requestUserAuthorization(DeezerAuthRequest deezerAuthRequest) {
         return DEEZER_BASE_URL + UriComponentsBuilder
                 .fromPath("/oauth/auth.php")
@@ -26,6 +27,7 @@ public class DeezerAuthService {
                 .build().toUriString();
     }
 
+    @Override
     public DeezerAuthResponseToken getAccessToken(DeezerAuthRequestToken deezerAuthRequestToken) {
         return this.webClient.get().uri(uriBuilder -> uriBuilder
                 .path("/oauth/access_token.php")
