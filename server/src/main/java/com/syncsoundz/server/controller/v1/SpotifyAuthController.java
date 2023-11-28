@@ -16,7 +16,7 @@ import org.springframework.web.reactive.function.client.WebClientException;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/spotify")
 public class SpotifyAuthController {
 
     @Value("${SPOTIFY_CLIENT_ID}")
