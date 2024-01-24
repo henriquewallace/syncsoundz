@@ -4,11 +4,14 @@ import com.syncsoundz.server.domain.AuthRedirectUrl;
 import com.syncsoundz.server.domain.spotify.SpotifyAuthRequest;
 import com.syncsoundz.server.domain.spotify.SpotifyAuthRequestToken;
 import com.syncsoundz.server.domain.spotify.SpotifyAuthResponseToken;
+import com.syncsoundz.server.domain.spotify.UserPlaylistSet;
 import com.syncsoundz.server.service.SpotifyAuthService;
+import com.syncsoundz.server.service.SpotifyService;
 import com.syncsoundz.server.util.CodeChallengeUtil;
 import com.syncsoundz.server.util.CodeVerifierUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClientException;
@@ -29,9 +32,11 @@ public class SpotifyController {
 
     private final SpotifyAuthService spotifyAuthService;
     private final SpotifyAuthRequest spotifyAuthRequest;
+    private final SpotifyService spotifyService;
 
-    public SpotifyController(SpotifyAuthService spotifyAuthService) {
+    public SpotifyController(SpotifyAuthService spotifyAuthService, SpotifyService spotifyService) {
         this.spotifyAuthService = spotifyAuthService;
+        this.spotifyService = spotifyService;
         this.spotifyAuthRequest = new SpotifyAuthRequest();
         spotifyAuthRequest.setCode_challenge_method("S256");
         spotifyAuthRequest.setResponse_type("code");
@@ -73,5 +78,14 @@ public class SpotifyController {
         response.sendRedirect("http://localhost:3000");
 
         return spotifyAuthResponseToken.getAccess_token();
+    }
+
+    @GetMapping(path = "/users/{userId}/playlists")
+    public UserPlaylistSet getUserPlaylists(
+            @PathVariable("userId") String userId,
+            @RequestParam(value = "limit", defaultValue = "20") Integer limit,
+            @RequestParam(value = "offset", defaultValue = "0") Integer offset,
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String jwtToken) {
+        return spotifyService.getUserPlaylist(userId, limit, offset, jwtToken);
     }
 }
