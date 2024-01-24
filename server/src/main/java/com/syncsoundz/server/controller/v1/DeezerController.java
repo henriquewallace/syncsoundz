@@ -1,21 +1,20 @@
 package com.syncsoundz.server.controller.v1;
 
 import com.syncsoundz.server.domain.AuthRedirectUrl;
-import com.syncsoundz.server.domain.DeezerAuthRequest;
-import com.syncsoundz.server.domain.DeezerAuthRequestToken;
-import com.syncsoundz.server.domain.DeezerAuthResponseToken;
+import com.syncsoundz.server.domain.deezer.DeezerAuthRequest;
+import com.syncsoundz.server.domain.deezer.DeezerAuthRequestToken;
+import com.syncsoundz.server.domain.deezer.DeezerAuthResponseToken;
 import com.syncsoundz.server.service.DeezerAuthService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.client.WebClientException;
 
 import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/deezer")
-public class DeezerAuthController {
+public class DeezerController {
 
     @Value("${DEEZER_APP_ID}")
     private String appId;
@@ -28,7 +27,7 @@ public class DeezerAuthController {
 
     private final DeezerAuthService deezerAuthService;
 
-    public DeezerAuthController(DeezerAuthService deezerAuthService) {
+    public DeezerController(DeezerAuthService deezerAuthService) {
         this.deezerAuthService = deezerAuthService;
     }
 

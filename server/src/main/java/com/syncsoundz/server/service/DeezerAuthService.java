@@ -1,8 +1,8 @@
 package com.syncsoundz.server.service;
 
-import com.syncsoundz.server.domain.DeezerAuthRequest;
-import com.syncsoundz.server.domain.DeezerAuthRequestToken;
-import com.syncsoundz.server.domain.DeezerAuthResponseToken;
+import com.syncsoundz.server.domain.deezer.DeezerAuthRequest;
+import com.syncsoundz.server.domain.deezer.DeezerAuthRequestToken;
+import com.syncsoundz.server.domain.deezer.DeezerAuthResponseToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;

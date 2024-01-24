@@ -1,8 +1,8 @@
 package com.syncsoundz.server.service;
 
-import com.syncsoundz.server.domain.SpotifyAuthRequest;
-import com.syncsoundz.server.domain.SpotifyAuthRequestToken;
-import com.syncsoundz.server.domain.SpotifyAuthResponseToken;
+import com.syncsoundz.server.domain.spotify.SpotifyAuthRequest;
+import com.syncsoundz.server.domain.spotify.SpotifyAuthRequestToken;
+import com.syncsoundz.server.domain.spotify.SpotifyAuthResponseToken;
 import com.syncsoundz.server.util.SpotifyApiPath;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
