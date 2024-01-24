@@ -1,9 +1,9 @@
 package com.syncsoundz.server.controller.v1;
 
 import com.syncsoundz.server.domain.AuthRedirectUrl;
-import com.syncsoundz.server.domain.SpotifyAuthRequest;
-import com.syncsoundz.server.domain.SpotifyAuthRequestToken;
-import com.syncsoundz.server.domain.SpotifyAuthResponseToken;
+import com.syncsoundz.server.domain.spotify.SpotifyAuthRequest;
+import com.syncsoundz.server.domain.spotify.SpotifyAuthRequestToken;
+import com.syncsoundz.server.domain.spotify.SpotifyAuthResponseToken;
 import com.syncsoundz.server.service.SpotifyAuthService;
 import com.syncsoundz.server.util.CodeChallengeUtil;
 import com.syncsoundz.server.util.CodeVerifierUtil;

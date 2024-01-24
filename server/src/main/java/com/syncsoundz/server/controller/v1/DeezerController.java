@@ -1,9 +1,9 @@
 package com.syncsoundz.server.controller.v1;
 
 import com.syncsoundz.server.domain.AuthRedirectUrl;
-import com.syncsoundz.server.domain.DeezerAuthRequest;
-import com.syncsoundz.server.domain.DeezerAuthRequestToken;
-import com.syncsoundz.server.domain.DeezerAuthResponseToken;
+import com.syncsoundz.server.domain.deezer.DeezerAuthRequest;
+import com.syncsoundz.server.domain.deezer.DeezerAuthRequestToken;
+import com.syncsoundz.server.domain.deezer.DeezerAuthResponseToken;
 import com.syncsoundz.server.service.DeezerAuthService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;

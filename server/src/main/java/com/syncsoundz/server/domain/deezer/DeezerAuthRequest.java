@@ -1,4 +1,4 @@
-package com.syncsoundz.server.domain;
+package com.syncsoundz.server.domain.deezer;
 
 import lombok.Data;
 
