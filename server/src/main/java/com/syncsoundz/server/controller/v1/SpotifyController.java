@@ -17,7 +17,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/spotify")
-public class SpotifyAuthController {
+public class SpotifyController {
 
     @Value("${SPOTIFY_CLIENT_ID}")
     private String clientId;
@@ -30,7 +30,7 @@ public class SpotifyAuthController {
     private final SpotifyAuthService spotifyAuthService;
     private final SpotifyAuthRequest spotifyAuthRequest;
 
-    public SpotifyAuthController(SpotifyAuthService spotifyAuthService) {
+    public SpotifyController(SpotifyAuthService spotifyAuthService) {
         this.spotifyAuthService = spotifyAuthService;
         this.spotifyAuthRequest = new SpotifyAuthRequest();
         spotifyAuthRequest.setCode_challenge_method("S256");
